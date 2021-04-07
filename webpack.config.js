@@ -55,8 +55,11 @@ module.exports = (_, { mode }) => ({
         ]
     },
     devServer: {
-        port: 3000
+        port: 3000,
+        // static: true,
+        hot: true
     },
+    target: mode === 'development' ? 'web' : 'browserslist',
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
