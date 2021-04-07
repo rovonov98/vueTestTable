@@ -14,7 +14,7 @@
           <td>{{ person.phone }}</td>
         </tr>
       </table>
-      <button>Click</button>
+      <button @click="onClick">Click</button>
   </div>
 
 </template>
@@ -44,16 +44,10 @@ export default {
       this.chosenSort.sort = mode
       if (this.chosenSort.sort === mode & this.chosenSort.mode === 'up') {
           this.chosenSort.mode = 'down'
-          if (mode === 'id') {
-            this.arrIntSort()
-          } else this.arrNamesSort(mode)
       } else {
           this.chosenSort.mode = 'up'
-          if (mode === 'id') {
-            this.arrIntSort()
-          } 
-          else this.arrNamesSort(mode)
       } 
+      mode === 'id' ? this.arrIntSort() : this.arrNamesSort(mode)
     },
     arrIntSort() {
       this.sortedPersons = this.persons.sort((a, b) => {
