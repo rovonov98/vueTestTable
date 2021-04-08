@@ -12,7 +12,12 @@ export default {
 </script>
 
 <style lang="scss">
-.flex {
-    font-size: $font-size;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  @include responsive-font(16, 9);
 }
 </style>

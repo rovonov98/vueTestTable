@@ -39,7 +39,10 @@ module.exports = (_, { mode }) => ({
                     {
                         loader: 'sass-loader',
                         options: {
-                            additionalData: '@import "src/assets/scss/variables.scss";',
+                            additionalData: `
+                                @import "src/assets/scss/variables.scss";
+                                @import "src/assets/scss/mixins.scss";
+                            `
                         }
                     }
                 ]
