@@ -27,7 +27,7 @@ export default {
       sortedPersons: [],
       chosenSort: {
         sort: '',
-        mode: 'down'
+        mode: 'decrement'
       }
     }
   },
@@ -41,17 +41,17 @@ export default {
       console.log('js works')
     },
     sort(mode) {
-      this.chosenSort.sort = mode
-      if (this.chosenSort.sort === mode & this.chosenSort.mode === 'up') {
-          this.chosenSort.mode = 'down'
+      if (this.chosenSort.sort === mode & this.chosenSort.mode === 'increment') {
+          this.chosenSort.mode = 'decrement'
       } else {
-          this.chosenSort.mode = 'up'
+          this.chosenSort.mode = 'increment'
       } 
-      mode === 'id' ? this.arrIntSort() : this.arrNamesSort(mode)
+      this.chosenSort.sort = mode
+      mode === 'id' ? this.arrIntSort(mode) : this.arrNamesSort(mode)
     },
-    arrIntSort() {
+    arrIntSort(mode) {
       this.sortedPersons = this.persons.sort((a, b) => {
-        return this.chosenSort.mode === 'down' ? a.id - b.id : b.id - a.id
+        return this.chosenSort.mode === 'increment' ? a.id - b.id : b.id - a.id
       })
     },
     arrNamesSort(mode) {
@@ -60,10 +60,10 @@ export default {
           return 0
         }
         switch(this.chosenSort.mode) {
-          case 'down': 
+          case 'increment': 
             return a[mode] > b[mode] ? 1 : -1
           break
-          case 'up': 
+          case 'decrement': 
             return a[mode] > b[mode] ? -1 : 1
           break
         }

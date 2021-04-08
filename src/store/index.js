@@ -15,10 +15,14 @@ export default new Vuex.Store({
     },
     actions: {
       async getPersons(state) {
-        const jsonPersons = await fetch('http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}')
-        const persons = await jsonPersons.json()
-        state.commit('setPersons', persons)
-        console.log('works')
+        try {
+          const response = await fetch('http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}')
+          const persons = await response.json()
+          state.commit('setPersons', persons)
+        }
+        catch(err) {
+          console.log(err)
+        }
       }
     },
     getters: {
