@@ -66,7 +66,7 @@ module.exports = (_, { mode }) => ({
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Webpack Vue template'
+            title: 'Vue app'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
