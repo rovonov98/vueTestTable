@@ -4,11 +4,13 @@
       <button class="button" @click="loadArr(shortArr)">Короткий список</button>
       <button class="button" @click="loadArr(longArr)">Длинный список</button>
     </div>
+    <div v-if="isLoading">
+      Loading...
+    </div>
     <div  v-if="this.sortedPersons.length > 0" class="wrapper person__wrapper">
       <div class="person__wrapper">
         <NewPersonForm @addNewPerson="addNewPerson"/>
       </div>
-      
       <div>
         <input type="text" v-model="currentSearch">
         <button @click="search">Найти</button>
@@ -33,10 +35,11 @@
           <td class="table__domain">{{ person.phone }}</td>
         </tr>
       </table>
-      <button class="button" @click="changePage('-')">Назад</button>
+      <div class="choose-buttons wrapper">
+        <button class="button" @click="changePage('-')">Назад</button>
         <div>{{ this.page + 1 }}</div>
-      <button class="button" @click="changePage('+')">Вперёд</button>
-      
+        <button class="button" @click="changePage('+')">Вперёд</button>
+      </div>
       <div class="person__wrapper">
         <Person v-if="chosenRow.id" :person="chosenRow" />
       </div>
@@ -69,6 +72,7 @@ export default {
       currentSearch: '',
       pageSize: 50,
       page: 0,
+      isLoading: false
     }
   },
   computed: {
@@ -78,12 +82,14 @@ export default {
         persons[i] = this.$store.getters.getPersons.slice((i*this.pageSize), (i*this.pageSize) + this.pageSize);
       }
       return persons
-    },
+    }
   },
   methods: {
     async loadArr(link) {
+      this.isLoading = !this.isLoading
       await this.$store.dispatch('getPersons', link)
       this.sortedPersons = this.persons[this.page]
+      this.isLoading = !this.isLoading
     },
     addNewPerson(data) {
       this.sortedPersons.unshift(data)

@@ -6,11 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {},
     state: {
-      persons: []
+      persons: [],
     },
     mutations: {
       setPersons(state, persons) {
         state.persons = persons
+      },
+      setLoading(state) {
+        state.isLoding = !state.isLoading
       }
     },
     actions: {
@@ -26,6 +29,6 @@ export default new Vuex.Store({
       }
     },
     getters: {
-      getPersons: state => state.persons
+      getPersons: state => state.persons,
     }
   })
