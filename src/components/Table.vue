@@ -8,11 +8,11 @@
       <button @click="search">Найти</button>
     </div>
     <table class="table">
-      <th @click="sort('id')" class="table__heading">id</th>
-      <th @click="sort('firstName')" class="table__heading">firstName</th>
-      <th @click="sort('lastName')" class="table__heading">lastName</th>
-      <th @click="sort('email')" class="table__heading">email</th>
-      <th @click="sort('phone')" class="table__heading">phone</th>
+      <th @click="sort('id')" class="table__heading">id <span class="arrow"></span></th>
+      <th @click="sort('firstName')" class="table__heading">firstName <span class="arrow"></span></th>
+      <th @click="sort('lastName')" class="table__heading">lastName <span class="arrow"></span></th>
+      <th @click="sort('email')" class="table__heading">email <span class="arrow"></span></th>
+      <th @click="sort('phone')" class="table__heading">phone <span class="arrow"></span></th>
       <tr
         v-show="searchCheck(index)" 
         v-for="(person, index) in sortedPersons" 
@@ -178,5 +178,8 @@ export default {
   @media(max-width: 568px) {
     min-width: 80%;
   }
+}
+.arrow {
+  font-weight: 1000;
 }
 </style>

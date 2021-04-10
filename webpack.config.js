@@ -61,12 +61,14 @@ module.exports = (_, { mode }) => ({
         port: 3000,
         // static: true,
         hot: true
+        // hot reload doesn't work
     },
     target: mode === 'development' ? 'web' : 'browserslist',
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             title: 'Vue app'
+            // title works only in production
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
