@@ -7,27 +7,23 @@
       <div>
         <div class="">
           <span>id</span>
-          <input 
-            type="text" 
-            @keyup="newPerson.id = newPerson.id.replace(/[^\d]/g,'')"
-            v-model="newPerson.id"
-          >
+          <input type="number" v-model="newPerson.id" required>
         </div>
         <div class="">
           <span>firstName</span>
-          <input type="text" v-model="newPerson.firstName">
+          <input type="text" v-model="newPerson.firstName" pattern="[A-Za-z]{1,15}" required>
         </div>
         <div class="">
           <span>lastName</span>
-          <input type="text" v-model="newPerson.lastName">
+          <input type="text" v-model="newPerson.lastName" pattern="[A-Za-z]{1,15}" required>
         </div>
         <div class="">
           <span>email</span>
-          <input type="email" v-model="newPerson.email">
+          <input type="email" v-model="newPerson.email" required>
         </div>
         <div class="">
           <span>phone</span>
-          <input type="text" v-model="newPerson.phone">
+          <input type="text" v-model="newPerson.phone" pattern=".\d{3}.\d{3}.\d{4}" placeholder="(123)456-7890" required>
         </div>
       </div>
       <button class="button" value="Submit">Добавить в таблицу</button>
@@ -36,6 +32,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -46,21 +43,71 @@ export default {
         email: '',
         phone: ''
       },
-      addForm: false
+      addForm: false,
+      phoneLength: 13
     }
   },
   methods: {
     addPerson() {
+      this.newPerson.id = parseInt(this.newPerson.id, 10)
       this.$emit('addNewPerson', { ...this.newPerson })
       this.toggleAddForm()
+      this.newPerson.id = '',
+      this.newPerson.firstName = '',
+      this.newPerson.lastName = '',
+      this.newPerson.email = '',
+      this.newPerson.phone = ''
     },
     toggleAddForm() {
       this.addForm = !this.addForm
+    },
+    validateNames(name) {
+      this.newPerson[name] = 
+      this.newPerson[name].charAt(0).toUpperCase().replace(/[^A-Za-z]+/g, '') + 
+      this.newPerson[name].slice(1).toLowerCase().replace(/[^A-za-z]+/g, '')
+    },
+  },
+  computed: {
+    phone() {
+      return this.newPerson.phone
+    },
+    firstName() {
+      return this.newPerson.firstName
+    },
+    lastName() {
+      return this.newPerson.lastName
+    },
+    id() {
+      return this.newPerson.id
+    }
+  },
+  watch: {
+    phone() {
+      this.newPerson.phone = this.newPerson.phone.replace(/[^0-9]/g, '')
+        .replace(/^(\d{3})(\d{3})?(\d{4})?/g, '($1)$2-$3')
+        .substr(0, this.phoneLength)
+    },
+    firstName() {
+      this.validateNames('firstName') 
+    },
+    lastName() {
+      this.validateNames('lastName')
+    },
+    id() {
+      this.newPerson.id.replace(/[^0-9]/g, '')
     }
   }
 }
 </script>
 
 <style lang="scss">
-
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; 
+}
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
 </style>

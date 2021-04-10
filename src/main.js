@@ -4,6 +4,7 @@ import store from './store/index.js'
 import router from './router/index.js'
 import 'regenerator-runtime/runtime'
 
+
 new Vue({
     el: '#app',
     store,

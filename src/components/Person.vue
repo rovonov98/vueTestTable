@@ -33,6 +33,7 @@ textarea {
   font-size: 1rem;
   width: 100%;
   resize: none;
+  min-height: 10rem;
 }
 </style>
 

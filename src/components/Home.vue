@@ -127,7 +127,6 @@ export default {
       this.chosenRow = this.sortedPersons[index]
     },
     sort(mode) {
-      console.log('w')
       if (this.chosenSort.sort === mode & this.chosenSort.mode === 'increment') {
           this.chosenSort.mode = 'decrement'
       } else {
