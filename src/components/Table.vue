@@ -1,51 +1,41 @@
 <template>
-  <section class="wrapper">
-    <div class="choose-buttons wrapper" v-if="this.sortedPersons.length <= 0">
-      <button class="button" @click="loadArr(shortArr)">Короткий список</button>
-      <button class="button" @click="loadArr(longArr)">Длинный список</button>
-    </div>
-    <div v-if="isLoading">
-      Loading...
-    </div>
-    <div  v-if="this.sortedPersons.length > 0" class="wrapper person__wrapper">
-      <div class="person__wrapper">
+  <div>
+    <div class="person__wrapper">
         <NewPersonForm @addNewPerson="addNewPerson"/>
-      </div>
-      <div>
-        <input type="text" v-model="currentSearch">
-        <button @click="search">Найти</button>
-      </div>
-      <table class="table">
-        <th @click="sort('id')" class="table__heading">id</th>
-        <th @click="sort('firstName')" class="table__heading">firstName</th>
-        <th @click="sort('lastName')" class="table__heading">lastName</th>
-        <th @click="sort('email')" class="table__heading">email</th>
-        <th @click="sort('phone')" class="table__heading">phone</th>
-        <tr
-          v-show="searchCheck(index)" 
-          v-for="(person, index) in sortedPersons" 
-          :key="index"
-          @click="chooseRows(index)"
-          class="table__row"
-        >
-          <td class="table__domain">{{ person.id }}</td>
-          <td class="table__domain">{{ person.firstName }}</td>
-          <td class="table__domain">{{ person.lastName }}</td>
-          <td class="table__domain">{{ person.email }}</td>
-          <td class="table__domain">{{ person.phone }}</td>
-        </tr>
-      </table>
-      <div class="choose-buttons wrapper">
-        <button class="button" @click="changePage('-')">Назад</button>
-        <div>{{ this.page + 1 }}</div>
-        <button class="button" @click="changePage('+')">Вперёд</button>
-      </div>
-      <div class="person__wrapper">
-        <Person v-if="chosenRow.id" :person="chosenRow" />
-      </div>
     </div>
-  </section>
-
+    <div>
+      <input type="text" v-model="currentSearch">
+      <button @click="search">Найти</button>
+    </div>
+    <table class="table">
+      <th @click="sort('id')" class="table__heading">id</th>
+      <th @click="sort('firstName')" class="table__heading">firstName</th>
+      <th @click="sort('lastName')" class="table__heading">lastName</th>
+      <th @click="sort('email')" class="table__heading">email</th>
+      <th @click="sort('phone')" class="table__heading">phone</th>
+      <tr
+        v-show="searchCheck(index)" 
+        v-for="(person, index) in sortedPersons" 
+        :key="index"
+        @click="chooseRows(index)"
+        class="table__row"
+      >
+        <td class="table__domain">{{ person.id }}</td>
+        <td class="table__domain">{{ person.firstName }}</td>
+        <td class="table__domain">{{ person.lastName }}</td>
+        <td class="table__domain">{{ person.email }}</td>
+        <td class="table__domain">{{ person.phone }}</td>
+      </tr>
+    </table>
+    <div class="choose-buttons wrapper">
+      <button class="button" @click="changePage('-')">Назад</button>
+      <div>{{ this.page + 1 }}</div>
+      <button class="button" @click="changePage('+')">Вперёд</button>
+    </div>
+    <div class="person__wrapper">
+      <Person v-if="chosenRow.id" :person="chosenRow" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -53,11 +43,13 @@ import Person from './Person.vue'
 import NewPersonForm from './NewPersonForm.vue'
 
 export default {
-  name: 'HomeComponent',
   components: {
     Person,
     NewPersonForm
   },
+  props: [
+    'isLoaded'
+  ],
   data() {
     return {
       longArr: 'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}',
@@ -72,7 +64,6 @@ export default {
       currentSearch: '',
       pageSize: 50,
       page: 0,
-      isLoading: false
     }
   },
   computed: {
@@ -84,15 +75,17 @@ export default {
       return persons
     }
   },
-  methods: {
-    async loadArr(link) {
-      this.isLoading = !this.isLoading
-      await this.$store.dispatch('getPersons', link)
+  watch: {
+    isLoaded() {
       this.sortedPersons = this.persons[this.page]
-      this.isLoading = !this.isLoading
-    },
+    }
+  },
+  methods: {
     addNewPerson(data) {
       this.sortedPersons.unshift(data)
+    },
+    check() {
+      console.log(this.persons)
     },
     changePage(mode) {
       switch(mode) {
@@ -162,12 +155,6 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
 .table {
   border-collapse: collapse;
   border: 3px solid purple;
@@ -191,17 +178,5 @@ export default {
   @media(max-width: 568px) {
     min-width: 80%;
   }
-}
-.choose-buttons {
-  flex-direction: row;
-  button {
-    margin: 1rem;
-  }
-}
-.button {
-  padding: .5rem 1rem;
-  background: rgba(30, 139, 195, 1);
-  border-radius: 8px;
-  color: white;
 }
 </style>
