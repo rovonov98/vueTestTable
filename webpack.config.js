@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = (_, { mode }) => ({
     entry: {
         main: path.join(__dirname, 'src', 'main.js'),
-        // vendor: path.join(__dirname, 'src', 'vendor.js')
+        vendor: path.join(__dirname, 'src', 'vendor.js')
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -63,7 +63,7 @@ module.exports = (_, { mode }) => ({
         hot: true
         // hot reload doesn't work
     },
-    target: mode === 'development' ? 'web' : 'browserslist',
+    target: 'web',
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({

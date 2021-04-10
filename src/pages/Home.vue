@@ -61,4 +61,8 @@ export default {
   border-radius: 8px;
   color: white;
 }
+.button_disabled {
+  background: $transparent-grey;
+  color: #000;
+}
 </style>

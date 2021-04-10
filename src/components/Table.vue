@@ -1,18 +1,67 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div class="person__wrapper">
         <NewPersonForm @addNewPerson="addNewPerson"/>
     </div>
     <div>
-      <input type="text" v-model="currentSearch">
-      <button @click="search">Найти</button>
+      <input 
+        class="input" 
+        type="text" 
+        v-model="currentSearch"
+      >
+      <button class="button" @click="search">Найти</button>
     </div>
     <table class="table">
-      <th @click="sort('id')" class="table__heading">id <span class="arrow"></span></th>
-      <th @click="sort('firstName')" class="table__heading">firstName <span class="arrow"></span></th>
-      <th @click="sort('lastName')" class="table__heading">lastName <span class="arrow"></span></th>
-      <th @click="sort('email')" class="table__heading">email <span class="arrow"></span></th>
-      <th @click="sort('phone')" class="table__heading">phone <span class="arrow"></span></th>
+      <th @click="sort('id')" class="table__heading">
+        <span>id</span>
+        <span
+          v-show="chosenSort.sort === 'id'"
+          class="arrow" 
+          :class="{ arrow_up: this.chosenSort.mode === 'decrement' }"
+        >
+          &#11015;
+        </span>
+      </th>
+      <th @click="sort('firstName')" class="table__heading">
+        <span>firstName</span>
+        <span
+          v-show="chosenSort.sort === 'firstName'" 
+          class="arrow" 
+          :class="{ arrow_up: this.chosenSort.mode === 'decrement' }"
+        >
+          &#11015;
+        </span>
+      </th>
+      <th @click="sort('lastName')" class="table__heading">
+        <span>lastName</span>
+        <span
+          v-show="chosenSort.sort === 'lastName'" 
+          class="arrow" 
+          :class="{ arrow_up: this.chosenSort.mode === 'decrement' }"
+        >
+          &#11015;
+        </span>
+      </th>
+      <th @click="sort('email')" class="table__heading">
+        <span>email</span>
+        <span
+          v-show="chosenSort.sort === 'email'" 
+          class="arrow" 
+          :class="{ arrow_up: this.chosenSort.mode === 'decrement' }"
+        >
+          &#11015;
+        </span>
+      </th>
+      <th @click="sort('phone')" class="table__heading">
+        <span>phone</span>
+        <span
+          v-show="chosenSort.sort === 'phone'" 
+          class="arrow" 
+          :class="{ arrow_up: this.chosenSort.mode === 'decrement' }"
+        >
+          &#11015;
+        </span>
+      </th>
       <tr
         v-show="searchCheck(index)" 
         v-for="(person, index) in sortedPersons" 
@@ -28,9 +77,23 @@
       </tr>
     </table>
     <div class="choose-buttons wrapper">
-      <button class="button" @click="changePage('-')">Назад</button>
+      <button 
+        class="button" 
+        @click="changePage('-')"
+        :disabled="pagesState === 'firstPage'"
+        :class="{ button_disabled: this.pagesState === 'firstPage' }"
+      >
+        Назад
+      </button>
       <div>{{ this.page + 1 }}</div>
-      <button class="button" @click="changePage('+')">Вперёд</button>
+      <button 
+        class="button" 
+        @click="changePage('+')"
+        :disabled="pagesState === 'lastPage'"
+        :class="{ button_disabled: this.pagesState === 'lastPage' }"
+      >
+        Вперёд
+      </button>
     </div>
     <div class="person__wrapper">
       <Person v-if="chosenRow.id" :person="chosenRow" />
@@ -64,6 +127,7 @@ export default {
       currentSearch: '',
       pageSize: 50,
       page: 0,
+      pagesState: 'firstPage'
     }
   },
   computed: {
@@ -78,6 +142,11 @@ export default {
   watch: {
     isLoaded() {
       this.sortedPersons = this.persons[this.page]
+    },
+    page() {
+      this.page === this.persons.length - 1 ? this.pagesState = 'lastPage' :
+      this.page === 0 ? this.pagesState = 'firstPage' : 
+      this.pagesState = '' 
     }
   },
   methods: {
@@ -88,20 +157,20 @@ export default {
       console.log(this.persons)
     },
     changePage(mode) {
+       this.pagesState = ''
       switch(mode) {
         case '+': 
           if (this.page < this.persons.length - 1) {
             this.page++
-            this.sortedPersons = this.persons[this.page]
-          } else console.log('the end of the array')
+          } else this.pagesState = 'lastPage'
         break
         case '-':
           if (mode === '-' & this.page >= 1) {
             this.page--
-            this.sortedPersons = this.persons[this.page]
-          } else console.log('the start of the array')
+          } else this.pagesState = 'firstPage'
         break
       }
+      this.sortedPersons = this.persons[this.page]
     },
     search() {
       this.searchData = this.currentSearch
@@ -181,5 +250,17 @@ export default {
 }
 .arrow {
   font-weight: 1000;
+  display: inline-block;
+}
+.arrow_up {
+  transform: rotate(180deg);
+}
+.input {
+  padding: .65rem;
+  @include responsive-font(18, 9);
+  font-weight: 400;
+  outline: none; 
+  border: 1px solid $transparent-grey;
+  border-radius: 4px;
 }
 </style>

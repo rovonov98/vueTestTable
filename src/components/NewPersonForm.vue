@@ -3,27 +3,60 @@
     <div>
       <button class="button" @click="toggleAddForm">Добавить</button>
     </div>
-    <form v-show="addForm" class="person" @submit.prevent="addPerson">
+    <form 
+      v-show="addForm" 
+      class="person" 
+      @submit.prevent="addPerson"
+    >
       <div>
-        <div class="">
+        <div>
           <span>id</span>
-          <input type="number" v-model="newPerson.id" required>
+          <input 
+            class="input"
+            type="number"
+            v-model="newPerson.id" 
+            required
+          >
         </div>
-        <div class="">
+        <div>
           <span>firstName</span>
-          <input type="text" v-model="newPerson.firstName" pattern="[A-Za-z]{1,15}" required>
+          <input 
+            class="input"
+            type="text" 
+            v-model="newPerson.firstName" 
+            pattern="[A-Za-z]{1,15}" 
+            required
+          >
         </div>
-        <div class="">
+        <div>
           <span>lastName</span>
-          <input type="text" v-model="newPerson.lastName" pattern="[A-Za-z]{1,15}" required>
+          <input 
+            class="input"
+            type="text"
+            v-model="newPerson.lastName" 
+            pattern="[A-Za-z]{1,15}" 
+            required
+          >
         </div>
-        <div class="">
+        <div>
           <span>email</span>
-          <input type="email" v-model="newPerson.email" required>
+          <input 
+            class="input" 
+            type="email" 
+            v-model="newPerson.email" 
+            required
+          >
         </div>
-        <div class="">
+        <div>
           <span>phone</span>
-          <input type="text" v-model="newPerson.phone" pattern=".\d{3}.\d{3}.\d{4}" placeholder="(123)456-7890" required>
+          <input 
+            class="input" 
+            type="text" 
+            v-model="newPerson.phone" 
+            pattern=".\d{3}.\d{3}.\d{4}" 
+            placeholder="(123)456-7890"
+            required
+          >
         </div>
       </div>
       <button class="button" value="Submit">Добавить в таблицу</button>
