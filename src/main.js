@@ -6,12 +6,7 @@ import 'regenerator-runtime/runtime'
 
 
 new Vue({
-    el: '#app',
     store,
     router,
     render: h => h(App)
-})
-
-if (module.hot) {
-    module.hot.accept()
-}
+}).$mount('#app')

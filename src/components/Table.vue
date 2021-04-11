@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapper">
+  <section class="wrapper table-section">
     <div class="person__wrapper">
         <NewPersonForm @addNewPerson="addNewPerson"/>
     </div>
-    <div>
+    <div class="search-form">
       <input 
         class="input" 
         type="text" 
@@ -98,7 +98,7 @@
     <div class="person__wrapper">
       <Person v-if="chosenRow.id" :person="chosenRow" />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -224,9 +224,13 @@ export default {
 </script>
 
 <style lang="scss">
+.table-section {
+  width: 100%;
+}
 .table {
   border-collapse: collapse;
   border: 3px solid purple;
+  min-width: 60%;
 }
 .table__row {
   border-bottom: 1px solid #000;
@@ -256,11 +260,16 @@ export default {
   transform: rotate(180deg);
 }
 .input {
-  padding: .65rem;
-  @include responsive-font(18, 9);
+  padding: .25rem;
+  @include responsive-font(14, 9);
   font-weight: 400;
-  outline: none; 
   border: 1px solid $transparent-grey;
   border-radius: 4px;
+  margin: .35rem;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-self: center;
 }
 </style>

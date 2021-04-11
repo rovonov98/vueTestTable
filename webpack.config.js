@@ -6,12 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (_, { mode }) => ({
     entry: {
-        main: path.join(__dirname, 'src', 'main.js'),
-        vendor: path.join(__dirname, 'src', 'vendor.js')
+        main: path.resolve(__dirname, 'src', 'main.js'),
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
         filename: 
         mode === 'production'
         ? '[name].[contenthash].bundle.js'
@@ -58,8 +57,9 @@ module.exports = (_, { mode }) => ({
         ]
     },
     devServer: {
-        port: 3000,
+        port: 8080,
         // static: true,
+        contentBase: path.resolve(__dirname, './dist'),
         hot: true
         // hot reload doesn't work
     },
@@ -67,7 +67,8 @@ module.exports = (_, { mode }) => ({
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Vue app'
+            title: 'Vue app',
+            template: './index.html',
             // title works only in production
         }),
         new CleanWebpackPlugin(),

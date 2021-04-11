@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper">
+  <div class="wrapper">
     <div class="choose-buttons wrapper" v-if="this.$store.getters.getPersons.length <= 0">
       <button class="button" @click="loadArr(shortArr)">Короткий список</button>
       <button class="button" @click="loadArr(longArr)">Длинный список</button>
@@ -7,10 +7,10 @@
     <div v-if="isLoading">
       Loading...
     </div>
-    <div  v-if="this.$store.getters.getPersons.length > 0" class="wrapper person__wrapper">
+    <div  v-if="this.$store.getters.getPersons.length > 0" class="wrapper table-section__wrapper">
       <Table :isLoaded="isLoaded"/>
     </div>
-  </section>
+  </div>
 
 </template>
 
@@ -43,12 +43,19 @@ export default {
 </script>
 
 <style lang="scss">
+.table-section__wrapper {
+  min-width: 60%;
+  @media(max-width: 586px) {
+    min-width: 80%;
+  }
+}
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+
 .choose-buttons {
   flex-direction: row;
   button {

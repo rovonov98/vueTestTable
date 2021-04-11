@@ -9,45 +9,49 @@
       @submit.prevent="addPerson"
     >
       <div>
-        <div>
+        <div class="new-person-form__fields">
           <span>id</span>
           <input 
             class="input"
             type="number"
             v-model="newPerson.id" 
+            placeholder="1"
             required
           >
         </div>
-        <div>
+        <div class="new-person-form__fields">
           <span>firstName</span>
           <input 
             class="input"
             type="text" 
             v-model="newPerson.firstName" 
             pattern="[A-Za-z]{1,15}" 
+            placeholder="Ivan"
             required
           >
         </div>
-        <div>
+        <div class="new-person-form__fields">
           <span>lastName</span>
           <input 
             class="input"
             type="text"
-            v-model="newPerson.lastName" 
+            v-model="newPerson.lastName"
+            placeholder="Ivanov"
             pattern="[A-Za-z]{1,15}" 
             required
           >
         </div>
-        <div>
+        <div class="new-person-form__fields">
           <span>email</span>
           <input 
             class="input" 
             type="email" 
-            v-model="newPerson.email" 
+            v-model="newPerson.email"
+            placeholder="something@gmail.com"
             required
           >
         </div>
-        <div>
+        <div class="new-person-form__fields">
           <span>phone</span>
           <input 
             class="input" 
@@ -142,5 +146,10 @@ input[type="number"]:hover,
 input[type="number"]:focus {
     appearance: none;
     -moz-appearance: textfield;
+}
+.new-person-form__fields {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
