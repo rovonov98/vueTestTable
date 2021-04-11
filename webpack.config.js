@@ -58,10 +58,8 @@ module.exports = (_, { mode }) => ({
     },
     devServer: {
         port: 8080,
-        // static: true,
         contentBase: path.resolve(__dirname, './dist'),
         hot: true
-        // hot reload doesn't work
     },
     target: 'web',
     plugins: [
@@ -69,7 +67,6 @@ module.exports = (_, { mode }) => ({
         new HtmlWebpackPlugin({
             title: 'Vue app',
             template: './index.html',
-            // title works only in production
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
