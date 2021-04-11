@@ -131,7 +131,7 @@ export default {
       this.validateNames('lastName')
     },
     id() {
-      this.newPerson.id.replace(/[^0-9]/g, '')
+      this.newPerson.id = this.newPerson.id.replace(/[^0-9]/g, '')
     }
   }
 }
