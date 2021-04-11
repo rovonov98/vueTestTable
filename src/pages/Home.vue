@@ -7,6 +7,9 @@
     <div v-if="isLoading">
       Loading...
     </div>
+    <div v-if="error !== ''">
+      Error!
+    </div>
     <div  v-if="this.$store.getters.getPersons.length > 0" class="wrapper table-section__wrapper">
       <Table :isLoaded="isLoaded"/>
     </div>
@@ -29,6 +32,11 @@ export default {
       isLoading: false,
       isLoaded: false,
 
+    }
+  },
+  computed: {
+    error() {
+      return this.$store.getters.getError
     }
   },
   methods: {

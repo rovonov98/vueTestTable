@@ -153,9 +153,6 @@ export default {
     addNewPerson(data) {
       this.sortedPersons.unshift(data)
     },
-    check() {
-      console.log(this.persons)
-    },
     changePage(mode) {
        this.pagesState = ''
       switch(mode) {
