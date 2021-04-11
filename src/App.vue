@@ -18,6 +18,6 @@ export default {
   box-sizing: border-box;
 }
 :root {
-  @include responsive-font(16, 9);
+  @include responsive-font(16, 8.5);
 }
 </style>

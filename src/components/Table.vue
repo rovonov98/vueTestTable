@@ -237,7 +237,10 @@ export default {
   cursor: pointer;
 }
 .table__domain {
-  padding: .2rem;
+  padding: .05rem;
+  @media(min-width: 586px) {
+    padding: 0.3rem;
+  }
 }
 .table__heading {
   border: 3px solid #000;

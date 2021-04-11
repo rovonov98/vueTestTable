@@ -46,7 +46,7 @@ export default {
 .table-section__wrapper {
   min-width: 60%;
   @media(max-width: 586px) {
-    min-width: 80%;
+    min-width: 90%;
   }
 }
 .wrapper {
