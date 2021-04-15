@@ -1,13 +1,15 @@
 <template>
   <div class="person">
     <p>Выбран пользователь <b>{{ this.person.firstName + ' ' + this.person.lastName}}</b></p>
-    <p>Описание: </p>
+    <div v-if="this.person.description">
+      <p>Описание: </p>
       <textarea :placeholder="person.description" disabled>
       </textarea>
-    <p>Адрес проживания: <b>{{ this.person.address.streetAddress }}</b></p>
-    <p>Город: <b>{{ this.person.address.city }}</b></p>
-    <p>Провинция/штат: <b>{{ this.person.address.state }}</b></p>
-    <p>Индекс: <b>{{ this.person.address.zip }}</b></p>
+    </div>
+    <p v-if="this.person.address">Адрес проживания: <b>{{ this.person.address.streetAddress }}</b></p>
+    <p v-if="this.person.address">Город: <b>{{ this.person.address.city }}</b></p>
+    <p v-if="this.person.address">Провинция/штат: <b>{{ this.person.address.state }}</b></p>
+    <p v-if="this.person.address">Индекс: <b>{{ this.person.address.zip }}</b></p>
   </div>
 </template>
 
